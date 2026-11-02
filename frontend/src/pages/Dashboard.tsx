@@ -26,7 +26,7 @@ export function Dashboard() {
     <div className="page">
       <div className="dashboard-header">
         <Header title="Dashboard" />
-        <Button text="Create Task" size="large" />
+        <Button text="Create User" size="medium" />
       </div>
       <div className="dashboard-stats">
         <div className="stat-card">

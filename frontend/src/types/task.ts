@@ -5,4 +5,5 @@ export interface Task {
   dueDate?: string;
   status: 'todo' | 'in-progress' | 'done';
   priority?: 'low' | 'medium' | 'high';
+  users?: string;
 }
