@@ -31,6 +31,7 @@ func New(dbPath string) (*sql.DB, error) {
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		name TEXT NOT NULL,
+		surname TEXT NOT NULL,
 		email TEXT NOT NULL UNIQUE,
 		role TEXT NOT NULL DEFAULT 'user'
 			CHECK (role IN ('admin', 'user')),

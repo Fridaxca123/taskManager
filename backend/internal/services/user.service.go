@@ -26,13 +26,16 @@ func (s *UserService) ListUsers() ([]models.User, error) {
 // CreateUser validates and creates a user from a registration request.
 func (s *UserService) CreateUser(req models.RegisterRequest) (models.User, error) {
 	req.Name = strings.TrimSpace(req.Name)
+	req.Surname = strings.TrimSpace(req.Surname)
 	req.Email = strings.TrimSpace(req.Email)
 	req.Password = strings.TrimSpace(req.Password)
 
 	if req.Name == "" {
 		return models.User{}, fmt.Errorf("name is required")
 	}
-
+	if req.Surname == "" {
+		return models.User{}, fmt.Errorf("surname is required")
+	}
 	if req.Email == "" {
 		return models.User{}, fmt.Errorf("email is required")
 	}
@@ -52,6 +55,7 @@ func (s *UserService) CreateUser(req models.RegisterRequest) (models.User, error
 
 	user := models.User{
 		Name:         req.Name,
+		Surname:      req.Surname,
 		Email:        req.Email,
 		Role:         models.RoleUser,
 		PasswordHash: string(hash),

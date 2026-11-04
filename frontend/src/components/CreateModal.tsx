@@ -4,9 +4,10 @@ import { Button } from './Button';
 export interface FormField {
   name: string;
   label: string;
-  type?: 'text' | 'date' | 'textarea' | 'email' | 'password';
+  type?: 'text' | 'date' | 'textarea' | 'email' | 'password' | 'select';
   required?: boolean;
   placeholder?: string;
+  options?: { value: string; label: string }[];
 }
 
 interface CreateModalProps {
@@ -53,17 +54,39 @@ export function CreateModal({
         </span>
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
-          {fields.map((field) =>
-            field.type === 'textarea' ? (
-              <textarea
-                key={field.name}
-                placeholder={field.placeholder || field.label}
-                value={values[field.name]}
-                onChange={(e) => handleChange(field.name, e.target.value)}
-                required={field.required}
-                rows={4}
-              />
-            ) : (
+          {fields.map((field) => {
+            if (field.type === 'textarea') {
+              return (
+                <textarea
+                  key={field.name}
+                  placeholder={field.placeholder || field.label}
+                  value={values[field.name]}
+                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  required={field.required}
+                  rows={4}
+                />
+              );
+            }
+
+            if (field.type === 'select') {
+              return (
+                <select
+                  key={field.name}
+                  value={values[field.name]}
+                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  required={field.required}
+                >
+                  <option value="">-- Select {field.label} --</option>
+                  {field.options?.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              );
+            }
+
+            return (
               <input
                 key={field.name}
                 type={field.type || 'text'}
@@ -71,9 +94,16 @@ export function CreateModal({
                 value={values[field.name]}
                 onChange={(e) => handleChange(field.name, e.target.value)}
                 required={field.required}
+                autoComplete={
+                  field.type === 'password'
+                    ? 'new-password'
+                    : field.type === 'email'
+                      ? 'off'
+                      : undefined
+                }
               />
-            )
-          )}
+            );
+          })}
           <Button text="Create" type="submit" size="medium" />
         </form>
       </div>

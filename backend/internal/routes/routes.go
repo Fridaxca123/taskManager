@@ -3,6 +3,7 @@ package routes
 import (
 	"database/sql"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
 	"taskmanager/backend/internal/handlers"
@@ -13,6 +14,7 @@ import (
 // NewRouter sets up the application routes and returns a configured gin engine.
 func NewRouter(db *sql.DB) *gin.Engine {
 	router := gin.Default()
+	router.Use(cors.Default())
 
 	taskRepo := repositories.NewTaskRepository(db)
 	taskService := services.NewTaskService(taskRepo)

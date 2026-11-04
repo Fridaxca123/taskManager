@@ -64,7 +64,8 @@ body {
   gap: 8px;
 }
 
-.sidebar-nav button {
+.sidebar-nav a {
+  display: block;
   text-align: left;
   padding: 12px 20px;
   border: 1px solid transparent;
@@ -74,15 +75,15 @@ body {
   font-size: 1.17em;
   width: 100%;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.sidebar-nav button:hover {
+.sidebar-nav a:hover {
   color: #720026;
   background: #FCE8ED;
-  cursor: pointer;
 }
 
-.sidebar-nav button.active {
+.sidebar-nav a.active {
   color: #720026;
   background: #FCE8ED;
   border: 1px solid #720026;
@@ -179,10 +180,11 @@ body {
 }
 
 .modal-content input,
-.modal-content textarea {
+.modal-content textarea,
+.modal-content select {
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 6px;
   font-family: inherit;
   font-size: 1rem;
 }

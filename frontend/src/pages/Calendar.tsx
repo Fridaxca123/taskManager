@@ -11,7 +11,7 @@ export function Calendar() {
   useEffect(() => {
     taskService
       .getTasks()
-      .then(setTasks)
+      .then((data) => setTasks(Array.isArray(data) ? data : []))
       .catch((err) => setError(err instanceof Error ? err.message : 'Unknown error'))
       .finally(() => setLoading(false));
   }, []);

@@ -1,7 +1,4 @@
-interface SidebarProps {
-  activePage: string;
-  onNavigate: (page: string) => void;
-}
+import { Link, useLocation } from 'react-router';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard' },
@@ -10,23 +7,25 @@ const navItems = [
   { id: 'settings', label: 'Settings' },
 ];
 
-export function Sidebar({ activePage, onNavigate }: SidebarProps) {
+export function Sidebar() {
+  const location = useLocation();
+  const activePage = location.pathname.split('/')[1] || 'dashboard';
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <img src="/public/images/icon.png" alt="icon" />
+        <img src="/images/icon.png" alt="icon" />
         <h2>Calendar</h2>
       </div>
       <nav className="sidebar-nav">
         {navItems.map((item) => (
-          <button
+          <Link
             key={item.id}
-            type="button"
+            to={`/${item.id}`}
             className={activePage === item.id ? 'active' : ''}
-            onClick={() => onNavigate(item.id)}
           >
             {item.label}
-          </button>
+          </Link>
         ))}
       </nav>
     </aside>
